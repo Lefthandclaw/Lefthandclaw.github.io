@@ -1,1 +1,21 @@
-Hello World
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>README Viewer</title>
+</head>
+<body>
+  <div id="readme">Ladataan README.md...</div>
+  <script>
+    fetch('https://raw.githubusercontent.com/Lefthandclaw/yksil-projekti/main/README.md')
+      .then(response => response.text())
+      .then(text => {
+        // Markdownin näyttämiseen tarvitset converterin
+        const converter = new showdown.Converter(); // Tarvitsee showdown.js
+        const html = converter.makeHtml(text);
+        document.getElementById('readme').innerHTML = html;
+      });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/showdown/dist/showdown.min.js"></script>
+</body>
+</html>
