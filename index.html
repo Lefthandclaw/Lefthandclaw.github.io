@@ -1,51 +1,21 @@
 <!DOCTYPE html>
-<html lang="fi">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>README-näkymä</title>
-  <script src="https://cdn.jsdelivr.net/npm/showdown/dist/showdown.min.js"></script>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      max-width: 800px;
-      margin: 2em auto;
-      padding: 1em;
-      line-height: 1.6;
-      background: #f9f9f9;
-      color: #333;
-    }
-    pre {
-      background: #eee;
-      padding: 1em;
-      overflow-x: auto;
-    }
-    code {
-      background: #e0e0e0;
-      padding: 2px 4px;
-      border-radius: 4px;
-    }
-  </style>
+  <title>README Viewer</title>
 </head>
 <body>
-  <h1>yksil-projekti README</h1>
   <div id="readme">Ladataan README.md...</div>
-
   <script>
     fetch('https://raw.githubusercontent.com/Lefthandclaw/yksil-projekti/main/README.md')
-      .then(response => {
-        if (!response.ok) throw new Error("README.md ei löytynyt");
-        return response.text();
-      })
-      .then(markdown => {
-        const converter = new showdown.Converter();
-        const html = converter.makeHtml(markdown);
+      .then(response => response.text())
+      .then(text => {
+        // Markdownin näyttämiseen tarvitset converterin
+        const converter = new showdown.Converter(); // Tarvitsee showdown.js
+        const html = converter.makeHtml(text);
         document.getElementById('readme').innerHTML = html;
-      })
-      .catch(error => {
-        document.getElementById('readme').innerHTML = "Virhe ladattaessa README.md-tiedostoa.";
-        console.error(error);
       });
   </script>
+  <script src="https://cdn.jsdelivr.net/npm/showdown/dist/showdown.min.js"></script>
 </body>
 </html>
